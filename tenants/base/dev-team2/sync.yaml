@@ -1,0 +1,27 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: dev-team2
+  namespace: apps2
+spec:
+  interval: 1m0s
+  ref:
+    branch: dev-team
+  url: https://github.com/wb213/flux2-multi-tenancy
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: dev-team2
+  namespace: apps2
+spec:
+  interval: 1m0s
+  path: ./
+  prune: false
+  serviceAccountName: dev-team2
+  sourceRef:
+    kind: GitRepository
+    name: dev-team2
+
