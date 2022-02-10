@@ -1,13 +1,15 @@
+---
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: GitRepository
 metadata:
   name: dev-team
   namespace: apps
 spec:
-  interval: 1m
-  url: https://github.com/fluxcd/flux2-multi-tenancy
+  interval: 1m0s
   ref:
     branch: dev-team
+  url: https://github.com/wb213/flux2-multi-tenancy
+
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
@@ -15,12 +17,11 @@ metadata:
   name: dev-team
   namespace: apps
 spec:
+  interval: 1m0s
+  path: ./
+  prune: true
   serviceAccountName: dev-team
-  interval: 5m
   sourceRef:
     kind: GitRepository
     name: dev-team
-  prune: true
-  validation: client
-
 
